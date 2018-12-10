@@ -1,0 +1,45 @@
+/*
+    File: main.css
+    Description: Main style definition
+*/
+
+body {
+    margin: 0;
+}
+
+.map-grid-container {
+    display: grid;
+    position: absolute; /* multi layer support */
+}
+
+.map-grid-cell {
+    /*width: 64px;*/
+    height: 64px;
+    padding: 0;
+}
+
+.map-grid-cell.debug {
+    border-right: 1px dashed #000000;
+    border-bottom: 1px dashed #000000;
+}
+
+.map-grid-cell-label {
+    margin: 0;
+    font-family: monospace;
+    color: white;
+}
+
+.tileset {
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+}
+
+.tileset-dungeon {
+    background-size: 1024px; /* tileCount * pixelsPerTile * 4 */
+    background-image: url("../img/tileset_16x16_v1.png");
+    background-repeat: no-repeat;
+}
+
+::-webkit-scrollbar { 
+    display: none; 
+}

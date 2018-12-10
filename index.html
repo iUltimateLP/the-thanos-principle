@@ -1,0 +1,29 @@
+<!--
+    File: index.html
+    Description: Main HTML index file for the game
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>The Thanos Principle</title>
+        <meta charset="utf-8">
+
+        <!-- Load external stylesheets -->
+        <link rel="stylesheet" type="text/css" href="assets/css/main.css"/>
+    </head>
+    <body>
+        <!-- Store the time this page began to load, for fun -->
+        <script>var startTime = Date.now();</script>
+
+        <div class="map-grid-container" id="mapGridContainer_layer0"></div>
+        <div class="map-grid-container" id="mapGridContainer_layer1"></div>
+        <div class="map-grid-container" id="mapGridContainer_layer2"></div>
+
+        <!-- Load game scripts after the document has been created -->
+        <script src="assets/js/config.js"></script>
+        <script src="assets/js/tilesets.js"></script>
+        <script src="assets/js/grid.js"></script>
+        <script src="assets/js/main.js"></script>
+    </body>
+</html>
