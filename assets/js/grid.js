@@ -54,6 +54,10 @@ class Grid {
         this.getMapContainer().style.display = state ? "grid" : "none";
     }
 
+    clear() {
+        this.getMapContainer().innerHTML = "";
+    }
+
     generate() {
         this.getMapContainer().setAttribute("style", "grid-template-columns: repeat(" + this.tilesX + ", 64px);")
 
@@ -98,10 +102,19 @@ class LayeredGrid {
         return this.tilesY;
     }
 
+    setSize(newX, newY) {
+        this.tilesX = newX;
+        this.tilesY = newY;
+        this.layers.forEach(function(layer) {
+            layer.clear();
+        });
+        this.layers = [];
+        this.generate();
+    }
+
     generate() {
         for (var layer = 0; layer < this.layerCount; layer++) {
             let grid = new Grid(this.tilesX, this.tilesY, this.getMapContainerName(layer));
-            console.log("#" + this.getMapContainerName(layer));
             grid.generate();
             this.layers.push(grid);
         }

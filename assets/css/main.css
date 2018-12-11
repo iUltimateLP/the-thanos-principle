@@ -5,6 +5,7 @@
 
 body {
     margin: 0;
+    background-color: #000000;
 }
 
 .map-grid-container {
@@ -26,7 +27,7 @@ body {
 .map-grid-cell-label {
     margin: 0;
     font-family: monospace;
-    color: white;
+    color: #888888;
 }
 
 .tileset {
@@ -49,6 +50,6 @@ body {
     color: black;
     font-weight: bold;
     font-family: monospace;
-    position: absolute;
+    position: fixed;
     padding: 5px;
 }

@@ -8,7 +8,7 @@ window.onkeyup = function(e) {
     // F9
     if (e.keyCode === 120) {
         var dbgMenu = document.getElementById("debug-menu");
-        dbgMenu.style.display = dbgMenu.style.display === "block" ? "none" : "block"; 
+        dbgMenu.style.display = dbgMenu.style.display === "block" ? "none" : "block";
     }
 }
 

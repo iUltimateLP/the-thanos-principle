@@ -7,6 +7,6 @@ var gameConfig = {
 
 // Miscellaneous
     // Debug mode: renders grid lines and shows coordinates
-    debugMode: true,
+    debugMode: false,
 
 };
