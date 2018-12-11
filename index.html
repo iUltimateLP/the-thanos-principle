@@ -20,10 +20,18 @@
         <div class="map-grid-container" id="mapGridContainer_layer1"></div>
         <div class="map-grid-container" id="mapGridContainer_layer2"></div>
 
+        <div class="debug-menu" id="debug-menu" style="display: none;">
+            <a>Debug Menu</a>
+            <input type="checkbox" id="chkShowLayer0" checked="true" onchange="onDebugShowLayer(0, event.target.checked);">Layer 0</input>
+            <input type="checkbox" id="chkShowLayer1" checked="true" onchange="onDebugShowLayer(1, event.target.checked);">Layer 1</input>
+            <input type="checkbox" id="chkShowLayer2" checked="true" onchange="onDebugShowLayer(2, event.target.checked);">Layer 2</input>
+        </div>
+
         <!-- Load game scripts after the document has been created -->
         <script src="assets/js/config.js"></script>
         <script src="assets/js/tilesets.js"></script>
         <script src="assets/js/grid.js"></script>
+        <script src="assets/js/debug.js"></script>
         <script src="assets/js/main.js"></script>
     </body>
 </html>

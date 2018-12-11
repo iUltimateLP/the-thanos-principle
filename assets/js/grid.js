@@ -50,6 +50,10 @@ class Grid {
         return div;
     }
 
+    setVisibility(state) {
+        this.getMapContainer().style.display = state ? "grid" : "none";
+    }
+
     generate() {
         this.getMapContainer().setAttribute("style", "grid-template-columns: repeat(" + this.tilesX + ", 64px);")
 
@@ -66,5 +70,48 @@ class Grid {
             }
             this.cells.push(cellsY);
         }
+    }
+}
+
+class LayeredGrid {
+    constructor(tilesX, tilesY, mapContainerBaseID, layerCount) {
+        this.tilesX = tilesX;
+        this.tilesY = tilesY;
+        this.mapContainerBaseID = mapContainerBaseID;
+        this.layerCount = layerCount;
+        this.layers = [];
+    }
+
+    getMapContainerName(layer) {
+        return this.mapContainerBaseID + "_layer" + layer;
+    }
+
+    getLayerContainer(layer) {
+        return document.getElementById(this.getMapContainerName(layer));
+    }
+
+    getTilesX() {
+        return this.tilesX;
+    }
+
+    getTilesY() {
+        return this.tilesY;
+    }
+
+    generate() {
+        for (var layer = 0; layer < this.layerCount; layer++) {
+            let grid = new Grid(this.tilesX, this.tilesY, this.getMapContainerName(layer));
+            console.log("#" + this.getMapContainerName(layer));
+            grid.generate();
+            this.layers.push(grid);
+        }
+    }
+
+    getGrid(layer) {
+        return this.layers[layer];
+    }
+
+    setLayerVisibility(layer, visibile) {
+        this.layers[layer].setVisibility(visibile);
     }
 }

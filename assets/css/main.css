@@ -43,3 +43,12 @@ body {
 ::-webkit-scrollbar { 
     display: none; 
 }
+
+.debug-menu {
+    background-color: #ffffffcc;
+    color: black;
+    font-weight: bold;
+    font-family: monospace;
+    position: absolute;
+    padding: 5px;
+}
