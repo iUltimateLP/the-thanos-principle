@@ -3,6 +3,15 @@
     Description: Grid system
 */
 
+function pointToGridCoords(x, y) {
+    var coords = {};
+    
+    coords.x = Math.floor(x / 64);
+    coords.y = Math.floor(y / 64);
+
+    return coords;
+}
+
 class Grid {
     constructor(tilesX, tilesY, mapContainerID) {
         this.tilesX = tilesX;
@@ -23,7 +32,7 @@ class Grid {
         return document.getElementById(this.mapContainerID);
     }
 
-    applyTileset(tileset, targetX, targetY, tileX, tileY) {
+    applyTileset(tileset, targetX, targetY, tileX, tileY, collidable) {
         var bgSizePx = (tileset.xTiles * tileset.pixelsPerTile * 4);
 
         var backgroundSizeStr = "background-size: " + bgSizePx + "px;";
@@ -33,6 +42,10 @@ class Grid {
 
         var styleString = backgroundSizeStr + " " + backgroundImageStr + " " + backgroundPositionXStr + " " + backgroundPositionYStr;
         this.cells[targetY][targetX].style = styleString;
+
+        if (collidable) {
+            this.cells[targetY][targetX].setAttribute("collidable", true);
+        }
     }
 
     createCell(x, y) {
@@ -73,6 +86,20 @@ class Grid {
                 this.getMapContainer().appendChild(cell);
             }
             this.cells.push(cellsY);
+        }
+    }
+
+    clearHighlight() {
+        for (var y = 0; y < this.cells.length; y++) {
+            for(var x = 0; x < this.cells[y].length; x++) {
+                this.highlight(x, y, false);
+            }
+        }
+    }
+
+    highlight(x, y, state) {
+        if (this.cells[y][x]) {
+            this.cells[y][x].setAttribute("class", "map-grid-cell tileset " + (state ? "highlight" : ""));
         }
     }
 }

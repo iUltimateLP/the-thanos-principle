@@ -11,13 +11,10 @@
 
         <!-- Load external stylesheets -->
         <link rel="stylesheet" type="text/css" href="assets/css/main.css"/>
-
-        <!-- Load jQuery, used for JSON and other features -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     </head>
     <body>
         <!-- Store the time this page began to load, for fun -->
-        <script>var startTime = Date.now();</script>
+        <script>var gameStartTime = Date.now();</script>
 
         <div class="map-grid-container" id="mapGridContainer_layer0"></div>
         <div class="map-grid-container" id="mapGridContainer_layer1"></div>
@@ -28,15 +25,21 @@
             <input type="checkbox" id="chkShowLayer0" checked="true" onchange="onDebugShowLayer(0, event.target.checked);">Layer 0</input>
             <input type="checkbox" id="chkShowLayer1" checked="true" onchange="onDebugShowLayer(1, event.target.checked);">Layer 1</input>
             <input type="checkbox" id="chkShowLayer2" checked="true" onchange="onDebugShowLayer(2, event.target.checked);">Layer 2</input>
+            <button onclick="player.hitTest(100);">HitTest</button>
         </div>
 
         <!-- Load game scripts after the document has been created -->
-        <script src="assets/js/config.js"></script>
-        <script src="assets/js/tilesets.js"></script>
-        <script src="assets/js/grid.js"></script>
-        <script src="assets/js/debug.js"></script>
-        <script src="assets/js/tiledImporter.js"></script>
-        <script src="assets/maps/testmap.js"></script>
+        <script src="assets/js/engine/config.js"></script>
+        <script src="assets/js/engine/tilesets.js"></script>
+        <script src="assets/js/engine/sprite.js"></script>
+        <script src="assets/js/engine/grid.js"></script>
+        <script src="assets/js/engine/debug.js"></script>
+        <script src="assets/js/engine/tiledImporter.js"></script>
+        <script src="assets/js/engine/player.js"></script>
+        <script src="assets/js/engine/input.js"></script>
+
+        <script src="assets/maps/testmap2.js"></script>
+
         <script src="assets/js/main.js"></script>
     </body>
 </html>

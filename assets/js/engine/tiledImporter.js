@@ -51,6 +51,7 @@ class TiledMapImporter {
         var x = Math.floor(index / 16);
         var y = index - (Math.floor(index / 16) * 16);
 
+        // Swap y and x
         return {x: y, y: x};
     }
 
@@ -69,7 +70,9 @@ class TiledMapImporter {
                 var tilesetCoords = this.tiledIndexToCoordinates(layer.data[currentTileIdx]);
                 var tileCoords = this.tiledIndexToCoordinates(currentTileIdx);
 
-                layeredGridTarget.getGrid(currentLayerIdx).applyTileset(tilesets.dungeon, tileCoords.x, tileCoords.y, tilesetCoords.x, tilesetCoords.y);
+                var isCollidable = (currentLayerIdx == 1) && layer.data[currentTileIdx] > 0;
+
+                layeredGridTarget.getGrid(currentLayerIdx).applyTileset(tilesets.dungeon, tileCoords.x, tileCoords.y, tilesetCoords.x, tilesetCoords.y, isCollidable);
             }
         }
 

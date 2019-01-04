@@ -19,6 +19,11 @@ body {
     padding: 0;
 }
 
+.map-grid-cell.highlight {
+    background-color: #ff0000aa;
+    background-blend-mode: overlay;
+}
+
 .map-grid-cell.debug {
     border-right: 1px dashed #000000;
     border-bottom: 1px dashed #000000;
@@ -52,4 +57,15 @@ body {
     font-family: monospace;
     position: fixed;
     padding: 5px;
+}
+
+.sprite-movable {
+    position: absolute;
+    height: 64px;
+    width: 64px;
+    background-color: #ffffffcc;   
+}
+
+.animated-sprite {
+    position: absolute;
 }
