@@ -54,6 +54,33 @@ class TiledMapImporter {
         // Swap y and x
         return {x: y, y: x};
     }
+    
+    findTilesetForTileID(tileID) {
+        var targetTilesetName = "dungeon";
+        var targetTileset;
+        var targetFirstGid = 0;
+
+        this.rawMapData.tilesets.forEach(function(currentTileset) {
+            if (tileID >= currentTileset.firstgid && tileID < (currentTileset.firstgid + 256)) {
+                targetTilesetName = currentTileset.tilesetName;
+                targetFirstGid = currentTileset.firstgid - 1;
+            }
+        });
+
+       // console.log(tileID + " maps to " + targetTilesetName);
+
+        tilesets.forEach(function(tileset) {
+            if (tileset.name === targetTilesetName) {
+                targetTileset = tileset;
+            }
+        });
+
+        return {tileset: targetTileset, firstgid: targetFirstGid};
+    }
+
+    getLayerCount() {
+        return this.rawMapData.layers.length;
+    }
 
     applyMapToGrid(layeredGridTarget) {
         var layers = this.rawMapData.layers;
@@ -67,12 +94,18 @@ class TiledMapImporter {
             var layer = layers[currentLayerIdx];
             
             for (var currentTileIdx = 0; currentTileIdx < layer.data.length; currentTileIdx++) {
-                var tilesetCoords = this.tiledIndexToCoordinates(layer.data[currentTileIdx]);
+                var targetTileset = this.findTilesetForTileID(layer.data[currentTileIdx]);
+
+                var adjustedTile = layer.data[currentTileIdx] - targetTileset.firstgid;
+                
+                var tilesetCoords = this.tiledIndexToCoordinates(adjustedTile);
                 var tileCoords = this.tiledIndexToCoordinates(currentTileIdx);
 
-                var isCollidable = (currentLayerIdx == 1) && layer.data[currentTileIdx] > 0;
+                var isCollidable = layer.data[currentTileIdx] > 0 && getLayerProperty(layer, "collidable"); //(currentLayerIdx == 1) && layer.data[currentTileIdx] > 0;
 
-                layeredGridTarget.getGrid(currentLayerIdx).applyTileset(tilesets.dungeon, tileCoords.x, tileCoords.y, tilesetCoords.x, tilesetCoords.y, isCollidable);
+                console.log(targetTileset.tileset.name + " - " + adjustedTile);
+
+                layeredGridTarget.getGrid(currentLayerIdx).applyTileset(targetTileset.tileset, tileCoords.x, tileCoords.y, tilesetCoords.x, tilesetCoords.y, isCollidable);
             }
         }
 

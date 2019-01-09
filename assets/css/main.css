@@ -57,6 +57,7 @@ body {
     font-family: monospace;
     position: fixed;
     padding: 5px;
+    z-index: 50;
 }
 
 .sprite-movable {
