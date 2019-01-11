@@ -44,6 +44,9 @@ function calculatePlayerMovementVector() {
 // Handle on key down event
 window.onkeydown = function(event) {
     keyStates[event.keyCode] = true;
+
+    // We don't want their standard key behaviour
+    event.preventDefault();
 }
 
 // Handle on key up event
