@@ -60,12 +60,27 @@ class TiledMapImporter {
         var targetTileset;
         var targetFirstGid = 0;
 
-        this.rawMapData.tilesets.forEach(function(currentTileset) {
+        /*this.rawMapData.tilesets.forEach(function(currentTileset) {
             if (tileID >= currentTileset.firstgid && tileID < (currentTileset.firstgid + 256)) {
                 targetTilesetName = currentTileset.tilesetName;
                 targetFirstGid = currentTileset.firstgid - 1;
             }
-        });
+        });*/
+
+        for (var i = 0; i < this.rawMapData.tilesets.length; i++) {
+            var currentTileset = this.rawMapData.tilesets[i];
+            var nextTileset = this.rawMapData.tilesets[i+1];
+
+            // Is the tile ID in currentGid..nextGid
+            if (tileID >= currentTileset.firstgid && nextTileset && tileID < nextTileset.firstgid) {
+                targetTilesetName = currentTileset.tilesetName;
+                targetFirstGid = currentTileset.firstgid - 1;
+            }
+            else if (tileID >= currentTileset.firstgid && !nextTileset) {
+                targetTilesetName = currentTileset.tilesetName;
+                targetFirstGid = currentTileset.firstgid - 1;
+            }
+        }
 
        // console.log(tileID + " maps to " + targetTilesetName);
 
@@ -99,11 +114,16 @@ class TiledMapImporter {
                 var adjustedTile = layer.data[currentTileIdx] - targetTileset.firstgid;
                 
                 var tilesetCoords = this.tiledIndexToCoordinates(adjustedTile);
-                var tileCoords = this.tiledIndexToCoordinates(currentTileIdx);
+                var tileCoords = {x: 0, y: 0};//this.tiledIndexToCoordinates(currentTileIdx);
+
+                tileCoords.y = Math.floor(currentTileIdx / 50);
+                tileCoords.x = currentTileIdx - (Math.floor(currentTileIdx / 50) * 50);
 
                 var isCollidable = layer.data[currentTileIdx] > 0 && getLayerProperty(layer, "collidable"); //(currentLayerIdx == 1) && layer.data[currentTileIdx] > 0;
 
-                console.log(targetTileset.tileset.name + " - " + adjustedTile);
+                //console.log(targetTileset.tileset.name + " - " + adjustedTile);
+                //console.log(tileCoords);
+                
 
                 layeredGridTarget.getGrid(currentLayerIdx).applyTileset(targetTileset.tileset, tileCoords.x, tileCoords.y, tilesetCoords.x, tilesetCoords.y, isCollidable);
             }

@@ -15,8 +15,10 @@ const KEY_ARROWLEFT = 37;
 const KEY_ARROWRIGHT = 39;
 const KEY_E = 69;
 
+// Keeping track of the pressed keys
 var keyStates = [];
 
+// This calculates a two-dimensional movement vector based on the pressed movement keys
 function calculatePlayerMovementVector() {
     var vector = {x: 0, y: 0};
 
@@ -39,10 +41,12 @@ function calculatePlayerMovementVector() {
     return vector;
 }
 
+// Handle on key down event
 window.onkeydown = function(event) {
     keyStates[event.keyCode] = true;
 }
 
+// Handle on key up event
 window.onkeyup = function(event) {
     var key = event.keyCode;
 
@@ -55,4 +59,9 @@ window.onkeyup = function(event) {
     }
 
     keyStates[key] = false;
+}
+
+// Handle the wheel event to prevent scrolling (we have a fixed camera)
+window.onwheel = function(event) {
+    event.preventDefault();
 }

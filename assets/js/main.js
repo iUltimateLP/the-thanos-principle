@@ -5,11 +5,11 @@
 
 // Create a new map importer and load the game's main map
 let mapImporter = new TiledMapImporter();
-mapImporter.loadMap(JSON.stringify(testmap2));
+mapImporter.loadMap(JSON.stringify(test50));
 
 // Create a new layered grid object which serves as the level
 // The x and y parameters get overridden by the TiledMapImporter
-let level = new LayeredGrid(16, 16, "mapGridContainer", mapImporter.getLayerCount());
+let level = new LayeredGrid(16, 16, mapImporter.getLayerCount());
 level.generate();
 
 // Applies the map imported to the grid

@@ -49,8 +49,11 @@ class Player {
         // Convert the screen coordinates to grid coordinates
         var tile = screenPositionToGridPosition(testX, testY);
 
-        // Get all DOM elements at the position to test (we convert tile coordinates to screen coordinates again by multiplying with the grid size)
-        var domElements = document.elementsFromPoint(tile.x * 64, tile.y * 64);
+        // Get the client rectangle (contains scroll offset)
+        var clientRect = document.body.getClientRects()[0];
+
+        // Get all DOM elements at the position to test (we convert tile coordinates to screen coordinates again by multiplying with the grid size and adding the screen offset)
+        var domElements = document.elementsFromPoint((tile.x * 64) + clientRect.x, (tile.y * 64) + clientRect.y);
 
         // Filter out elements which are no cells
         var cells = domElements.filter(elem => elem.classList.contains("map-grid-cell"));
@@ -62,6 +65,17 @@ class Player {
 
         // If there is at least one collidable cell, we have something in front of us
         return collidableCells.length > 0;
+    }
+
+    scrollCamera() {
+        // Calculate the (screen size) center of the screen
+        var center = {x: window.innerWidth / 2, y: window.innerHeight / 2};
+
+        // The scroll position centers around the player
+        var scrollX = this.position.x - center.x;
+        var scrollY = this.position.y - center.y;
+
+        window.scrollTo(scrollX, scrollY);
     }
 
     // Adds movement to the player using a movement vector (use this in a loop for smooth movement)
@@ -103,8 +117,7 @@ class Player {
             }
 
             // Scroll the camera
-            // TODO: more sensitive scrolling
-            window.scrollTo(posX, posY);
+            this.scrollCamera();
         } else {
             this.isMoving = false;
         }

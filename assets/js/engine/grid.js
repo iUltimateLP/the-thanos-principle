@@ -41,6 +41,7 @@ class Grid {
 
         // Create a nice style string out of it and apply it to the cell
         var styleString = backgroundSizeStr + " " + backgroundImageStr + " " + backgroundPositionXStr + " " + backgroundPositionYStr;
+        //console.log("targetX " + targetX + " targetY " + targetY);
         this.cells[targetY][targetX].style = styleString;
 
         // If the cell should be collidable, set an attirbute for later hit testing
@@ -119,17 +120,30 @@ class Grid {
 // A layered grid contains n grid elements, where n is the amount of layers
 class LayeredGrid {
     // Constructor
-    constructor(tilesX, tilesY, mapContainerBaseID, layerCount) {
+    constructor(tilesX, tilesY, layerCount) {
         this.tilesX = tilesX;
         this.tilesY = tilesY;
-        this.mapContainerBaseID = mapContainerBaseID;
         this.layerCount = layerCount;
         this.layers = [];
     }
 
+    createLayerContainer(layer) {
+        var div = document.createElement("div");
+        div.setAttribute("class", "map-grid-container");
+        div.setAttribute("id", "mapGridContainer_layer" + layer);
+
+        document.getElementById("mapRoot").appendChild(div);
+    }
+
+    clearLayer(layer) {
+        if (document.getElementById(this.getMapContainerName(layer))) {
+            document.getElementById(this.getMapContainerName(layer)).remove();
+        }
+    }
+
     // Returns the DOM element name a layer div element should have (TODO: we might want to create them instead of hardcode)
     getMapContainerName(layer) {
-        return this.mapContainerBaseID + "_layer" + layer;
+        return "mapGridContainer_layer" + layer;
     }
 
     // Returns a DOM element for the specified layer
@@ -161,6 +175,8 @@ class LayeredGrid {
     // Generates the grid by initializing each layer and lets them generate
     generate() {
         for (var layer = 0; layer < this.layerCount; layer++) {
+            this.clearLayer(layer);
+            this.createLayerContainer(layer);
             let grid = new Grid(this.tilesX, this.tilesY, this.getMapContainerName(layer));
             grid.generate();
             grid.getMapContainer().style.zIndex = layer + 1;

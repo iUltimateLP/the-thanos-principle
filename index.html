@@ -16,9 +16,7 @@
         <!-- Store the time this page began to load, for fun -->
         <script>var gameStartTime = Date.now();</script>
 
-        <div class="map-grid-container" id="mapGridContainer_layer0"></div>
-        <div class="map-grid-container" id="mapGridContainer_layer1"></div>
-        <div class="map-grid-container" id="mapGridContainer_layer2"></div>
+        <div id="mapRoot"></div>
 
         <div class="debug-menu" id="debug-menu" style="display: none;">
             <a>Debug Menu</a>
@@ -41,6 +39,8 @@
 
         <!-- Load game scripts after the engine has been initialized -->
         <script src="assets/maps/testmap2.js"></script>
+        <script src="assets/maps/mainmap.js"></script>
+        <script src="assets/maps/50x50test.js"></script>
         <script src="assets/js/main.js"></script>
     </body>
 </html>
