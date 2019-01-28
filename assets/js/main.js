@@ -1,20 +1,21 @@
 /*
     File: main.js
-    Description: Main source file for the game
+    Description: Main script, loaded last, initializes the base components of the game
 */
 
 // Create a new map importer and load the game's main map
 let mapImporter = new TiledMapImporter();
-mapImporter.loadMap(JSON.stringify(test50));
+mapImporter.loadMap(JSON.stringify(mainmap));
 
 // Create a new layered grid object which serves as the level
 // The x and y parameters get overridden by the TiledMapImporter
-let level = new LayeredGrid(16, 16, mapImporter.getLayerCount());
+let level = new LayeredGrid(16, 16, mapImporter.getTileLayerCount());
 level.generate();
 
 // Applies the map imported to the grid
 mapImporter.applyMapToGrid(level);
 
+// Create a new Thanos spritesheet instance
 var thanos = {
     spriteSheet: "assets/img/character/thanos_right.png",
     tileCount: 9,
@@ -26,6 +27,7 @@ var thanos = {
     renderPixelated: true
 }
 
+// Create the new player (global, is used on a variety of different scripts too)
 let player = new Player({
     spriteTemplate: thanos,
     spriteSheetRight: "assets/img/character/thanos_right.png",
@@ -34,21 +36,12 @@ let player = new Player({
     spriteSheetDown: "assets/img/character/thanos_front.png"
 });
 
-player.setPosition(500, 500);
+// Determine the player's spawn point, and set the players position accordingly
+var spawnPoint = mapImporter.findSpawnpoint();
+player.setPosition(spawnPoint.x, spawnPoint.y);
 
-var lastTime = Date.now();
-
-function gameLoop() {
-    var delta = Date.now();
-
-    var playerMovementVector = calculatePlayerMovementVector();
-        
-    player.addMovementInput(playerMovementVector);
-
-    window.requestAnimationFrame(gameLoop);
-}
-
-gameLoop();
+// Populate all the game objects
+populateLevelObjects();
 
 // Game Loading finished, print a cool stat
 console.log("%c[Main] It took " + (Date.now() - gameStartTime).toString() + "ms to load the game!", "font-weight: bold;");

@@ -70,3 +70,256 @@ body {
 .animated-sprite {
     position: absolute;
 }
+
+.ui-container {
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+}
+
+.key {
+    position: absolute;
+    background-image: url("../img/ui/keys.png");
+    background-repeat: no-repeat;
+    width: 32px;
+    height: 32px;
+    image-rendering: pixelated;
+    z-index: 100;
+}
+
+.key.e {
+    background-position-x: -128px;
+}
+
+.note-dialog {
+    position: fixed;
+    background-image: url("../img/ui/notebox.png");
+    width: 512px;
+    height: 128px;
+    background-size: contain;
+    image-rendering: pixelated;
+    z-index: 100;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.note-dialog.fade-in {
+    animation-duration: 0.5s;
+    animation-name: fade;
+    animation-direction: normal;
+    animation-play-state: running;
+    animation-fill-mode: forwards;
+}
+
+.note-dialog.fade-out {
+    animation-duration: 0.5s;
+    animation-name: fade;
+    /*animation-direction: reverse;*/
+    animation-play-state: running;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fade {
+    0% {opacity: 0;}
+    100% {opacity: 1}
+}
+
+@font-face {
+    font-family: Pixeled;
+    src: url("../fonts/Pixeled.ttf");
+}
+
+.note-dialog>p {
+    user-select: none;
+    color: #452a1b;
+    line-height: 22px;
+    font-size: 10pt;
+    font-family: Pixeled;
+    margin-left: 38px;
+    margin-top: 34px;
+    margin-right: 38px;
+    margin-bottom: 34px;
+    text-rendering: optimizeSpeed;
+}
+
+.vignette-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 200px 50px rgba(0,0,0,0.9) inset;
+    z-index: 99;
+}
+
+.fade-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 100;
+    opacity: 0;
+}
+
+.fade-overlay.fade {
+    animation-name: fade;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+}
+
+.tutorial {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    background-color: black;
+    animation-name: fade;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+    animation-delay: 5s;
+    animation-direction: reverse;
+}
+
+.tutorial-background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url("../img/gif/tutorial.gif");
+    background-size: contain;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+}
+
+.inventory-container {
+    position: fixed;
+    z-index: 100;
+    right: 0%;
+    top: 0%;
+    margin: 12px;
+}
+
+.inventory-cell {
+    background-image: url("../img/ui/inv-slot.png");
+    background-size: 48px;
+    height: 48px;
+    width: 48px;
+    image-rendering: pixelated;
+    float: left;
+}
+
+.inventory-item {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    width: 32px;
+    height: 32px;
+    image-rendering: pixelated;
+    z-index: 101;
+}
+
+.inventory-item.hammer {
+    background-image: url("../img/items/hammer.png");
+}
+
+.inventory-item.limestone-cube {
+    background-image: url("../img/items/limestone-cube.png")
+}
+
+.stones-container {
+    position: fixed;
+    z-index: 100;
+    top: 0%;
+    margin: 12px;
+}
+
+.stone-cell {
+    background-size: 48px;
+    height: 48px;
+    width: 48px;
+    image-rendering: pixelated;
+    float: left;
+    opacity: 0.5;
+}
+
+@keyframes stoneUnlock {
+    0% {transform: scale(1);}
+    50% {transform: scale(1.5);}
+    100% {transform: scale(1);}
+}
+
+.unlock-anim {
+    animation-name: stoneUnlock;
+    animation-duration: 0.5s;
+}
+
+.stone-cell.mind {
+    background-image: url("../img/stones/mindstone-socket.png");
+}
+
+.stone-cell.mind.unlocked {
+    background-image: url("../img/stones/mindstone.png");
+    opacity: 1;
+    animation-name: stoneUnlock;
+    animation-duration: 0.5s;
+}
+
+.stone-cell.power {
+    background-image: url("../img/stones/powerstone-socket.png");
+}
+
+.stone-cell.power.unlocked {
+    background-image: url("../img/stones/powerstone.png");
+    opacity: 1;
+    animation-name: stoneUnlock;
+    animation-duration: 0.5s;
+}
+
+.stone-cell.reality {
+    background-image: url("../img/stones/realitystone-socket.png");
+}
+
+.stone-cell.reality.unlocked {
+    background-image: url("../img/stones/realitystone.png");
+    opacity: 1;
+    animation-name: stoneUnlock;
+    animation-duration: 0.5s;
+}
+
+.stone-cell.soul {
+    background-image: url("../img/stones/soulstone-socket.png");
+}
+
+.stone-cell.soul.unlocked {
+    background-image: url("../img/stones/soulstone.png");
+    opacity: 1;
+    animation-name: stoneUnlock;
+    animation-duration: 0.5s;
+}
+
+.stone-cell.space {
+    background-image: url("../img/stones/spacestone-socket.png");
+}
+
+.stone-cell.space.unlocked {
+    background-image: url("../img/stones/spacestone.png");
+    opacity: 1;
+    animation-name: stoneUnlock;
+    animation-duration: 0.5s;
+}
+
+.stone-cell.time {
+    background-image: url("../img/stones/timestone-socket.png");
+}
+
+.stone-cell.time.unlocked {
+    background-image: url("../img/stones/timestone.png");
+    opacity: 1;
+    animation-name: stoneUnlock;
+    animation-duration: 0.5s;
+}

@@ -1,0 +1,34 @@
+body {
+	margin: 0;
+	overflow: hidden;
+	background-color: black;
+}
+
+.victory-gauntlet {
+	position: absolute;
+	width: 100%;
+	top: 50%;
+	transform: translateY(-50%);
+	animation-delay: 9s;
+	animation-duration: 5s;
+	animation-name: fadeOut;
+	animation-fill-mode: forwards;
+}
+
+.tribute {
+	position: absolute;
+	opacity: 0;
+	width: 100%;
+	top: 50%;
+	transform: translateY(-50%);
+	animation-delay: 14s;
+	animation-duration: 3s;
+	animation-name: fadeOut;
+	animation-fill-mode: forwards;
+	animation-direction: reverse;
+}
+
+@keyframes fadeOut {
+	0% {opacity: 1;}
+	100% {opacity: 0;}
+}

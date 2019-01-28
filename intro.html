@@ -1,0 +1,60 @@
+<!--
+    File: index.html
+    Description: Main HTML index file for the game
+-->
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>The Thanos Principle</title>
+		<meta charset="utf-8">
+
+        <!-- Load external stylesheets -->
+        <link rel="stylesheet" type="text/css" href="assets/css/intro.css"/>
+
+        <!-- THANOS FAVICON THANOS FAVICON -->
+        <link rel="shortcut icon" type="image/png" href="assets/img/favicon.png"/>
+	</head>
+	<body>
+		<div>
+			<!-- Main intro text -->
+			<div class="intro-text">
+				<p>THE</p>
+				<p class="thanos">THANOS</p>
+				<p>PRINCIPLE</p>
+			</div>
+			
+			<!-- Credits -->
+			<div class="credits-text">
+				<p>A GAME BY<br>JONATHAN VERBEEK<br>&DAVID BOLLMANN</p>
+				<p>MI1 GROUP B</p>
+			</div>
+			
+			<!-- Background image at the intro end-->
+			<div class="menu-background">
+				<img src="assets/img/ui/menu-background.png">
+				<p>PRESS SPACE TO START</p>
+			</div>
+		</div>
+		
+		<!-- Laying a vignette over the page for dark look -->
+		<div class="vignette"></div>
+		
+		<!-- Chrome audio autoplay fix -->
+		<iframe src="assets/sound/music/silence.mp3" allow="autoplay" id="audio" style="display:none"></iframe>
+
+		<!-- Background music -->
+		<audio autoplay id="Audio">
+			<source src="assets/sound/music/menu-theme.mp3" type="audio/mpeg">
+		</audio>
+
+		<!-- Space Key Event handler for loading the game -->
+		<script>
+			window.onkeydown = function(evt) {
+				if (evt.keyCode == 32) {
+					window.location.href = "index.html";
+				}
+			}
+		</script>
+	</body>
+</html>

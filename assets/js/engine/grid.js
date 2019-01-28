@@ -30,40 +30,34 @@ class Grid {
 
     // Applies a tileset tile to a specified position
     applyTileset(tileset, targetX, targetY, tileX, tileY, collidable) {
-        // Weird conversion for CSS' background size in pixels, 4 is our upscaling factor
-        var bgSizePx = (tileset.xTiles * tileset.pixelsPerTile * 4);
+        if (tileset) {
+            // Weird conversion for CSS' background size in pixels, 4 is our upscaling factor
+            var bgSizePx = (tileset.xTiles * tileset.pixelsPerTile * 4);
 
-        // Format the strings for CSS (note: you won't understand this - it took me at least three hours to figure out)
-        var backgroundSizeStr = "background-size: " + bgSizePx + "px;";
-        var backgroundImageStr = "background-image: url(\"" + tileset.fileName + "\");";
-        var backgroundPositionXStr = "background-position-x: " + (((tileX / tileset.xTiles) * bgSizePx) - (tileset.pixelsPerTile * 4)) * -1 + "px;";
-        var backgroundPositionYStr = "background-position-y: " + ((((tileY / tileset.yTiles) * bgSizePx) - (tileset.pixelsPerTile * 4)) * -1 - 64) +  "px;";
+            // Format the strings for CSS (note: you won't understand this - it took me at least three hours to figure out)
+            var backgroundSizeStr = "background-size: " + bgSizePx + "px;";
+            var backgroundImageStr = "background-image: url(\"" + tileset.fileName + "\");";
+            var backgroundPositionXStr = "background-position-x: " + (((tileX / tileset.xTiles) * bgSizePx) - (tileset.pixelsPerTile * 4)) * -1 + "px;";
+            var backgroundPositionYStr = "background-position-y: " + ((((tileY / tileset.yTiles) * bgSizePx) - (tileset.pixelsPerTile * 4)) * -1 - 64) +  "px;";
 
-        // Create a nice style string out of it and apply it to the cell
-        var styleString = backgroundSizeStr + " " + backgroundImageStr + " " + backgroundPositionXStr + " " + backgroundPositionYStr;
-        //console.log("targetX " + targetX + " targetY " + targetY);
-        this.cells[targetY][targetX].style = styleString;
+            // Create a nice style string out of it and apply it to the cell
+            var styleString = backgroundSizeStr + " " + backgroundImageStr + " " + backgroundPositionXStr + " " + backgroundPositionYStr;
+            //console.log("targetX " + targetX + " targetY " + targetY);
+            this.cells[targetY][targetX].style = styleString;
 
-        // If the cell should be collidable, set an attirbute for later hit testing
-        if (collidable) {
-            this.cells[targetY][targetX].setAttribute("collidable", true);
+            // If the cell should be collidable, set an attirbute for later hit testing
+            if (collidable) {
+                this.cells[targetY][targetX].setAttribute("collidable", true);
+            }
         }
     }
 
     // Creates a cell at a given position (internal use only!)
-    createCell(x, y) {
+    createCell() {
         // Create the root div element and apply class and style attributes
         var div = document.createElement("div");
-        div.setAttribute("class", "map-grid-cell tileset " + (gameConfig.debugMode ? "debug" : ""));
-        div.setAttribute("style", "height: " + gameConfig.gridTileSize + "px; ");
-
-        // Debug
-        if (gameConfig.debugMode) {
-            var p = document.createElement("p");
-            p.appendChild(document.createTextNode(x + "," + y));
-            p.setAttribute("class", "map-grid-cell-label");
-            div.appendChild(p);
-        }
+        div.setAttribute("class", "map-grid-cell tileset");
+        div.setAttribute("style", "height: 64px;");
 
         return div;
     }
@@ -127,6 +121,7 @@ class LayeredGrid {
         this.layers = [];
     }
 
+    // Creates the div container for a layer
     createLayerContainer(layer) {
         var div = document.createElement("div");
         div.setAttribute("class", "map-grid-container");
@@ -135,6 +130,7 @@ class LayeredGrid {
         document.getElementById("mapRoot").appendChild(div);
     }
 
+    // Clears a whole layer
     clearLayer(layer) {
         if (document.getElementById(this.getMapContainerName(layer))) {
             document.getElementById(this.getMapContainerName(layer)).remove();

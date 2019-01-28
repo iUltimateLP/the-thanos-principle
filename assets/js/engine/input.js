@@ -55,10 +55,9 @@ window.onkeyup = function(event) {
 
     console.log("%c[Input] Received input with key code " + key + " (" + event.key + ")", "font-weight: bold;");
 
-    // F9 - Debug Menu
-    if (key === KEY_F9) {
-        var dbgMenu = document.getElementById("debug-menu");
-        dbgMenu.style.display = dbgMenu.style.display === "block" ? "none" : "block";
+    // E - Interact with object
+    if (key === KEY_E) {
+        player.interactWithObject();
     }
 
     keyStates[key] = false;
